@@ -23,7 +23,7 @@ def main():
             "afc_report_dir", default_dir)
 
     if settings.value("acref_dir") is None:
-        settings.value(
+        settings.setValue(
             "acref_dir", default_dir)
 
     if settings.value("use_same_afc_report_and_acref_dir") is None:
