@@ -59,33 +59,33 @@ class MainWindow(QMainWindow):
             raise BaseException(
                 "Длина вектора частоты не равна длине вектора чувствительности")
 
-        if settings.value("use_same_afc_report_and_acref_dir", type=bool):
-            acref_dir = new_afc_report_dir
+        if settings.value("use_same_afc_report_and_afcref_dir", type=bool):
+            afcref_dir = new_afc_report_dir
         else:
-            acref_dir = settings.value("acref_dir")
+            afcref_dir = settings.value("afcref_dir")
 
-        default_acref_path = join(acref_dir, splitext(
-            afc_report_filename)[0] + ".acref")
+        default_afcref_path = join(afcref_dir, splitext(
+            afc_report_filename)[0] + ".afcref")
 
         res = QFileDialog.getSaveFileName(
-            self, "Сохранить acref-файл",
-            default_acref_path, "Файлы acref (*.acref)")
+            self, "Сохранить afcref-файл",
+            default_afcref_path, "Файлы afcref (*.afcref)")
 
-        acref_path = res[0]
-        if not acref_path:
+        afcref_path = res[0]
+        if not afcref_path:
             return
 
-        new_acref_dir = dirname(acref_path)
-        # acref_filename = basename(acref_path)
+        new_afcref_dir = dirname(afcref_path)
+        # afcref_filename = basename(afcref_path)
 
-        if new_acref_dir == new_afc_report_dir:
-            settings.setValue("use_same_afc_report_and_acref_dir", True)
+        if new_afcref_dir == new_afc_report_dir:
+            settings.setValue("use_same_afc_report_and_afcref_dir", True)
         else:
-            settings.setValue("use_same_afc_report_and_acref_dir", False)
-            if new_acref_dir != settings.value("acref_dir"):
-                settings.setValue("acref_dir", new_acref_dir)
+            settings.setValue("use_same_afc_report_and_afcref_dir", False)
+            if new_afcref_dir != settings.value("afcref_dir"):
+                settings.setValue("afcref_dir", new_afcref_dir)
 
-        with open(acref_path, "w") as file:
+        with open(afcref_path, "w") as file:
             file.writelines([
                 "<?xml version=\"1.0\" encoding=\"windows-1251\"?>\n",
                 "<afc_ref>\n",
@@ -96,14 +96,14 @@ class MainWindow(QMainWindow):
 
             for i, v in enumerate(f):
                 file.write(
-                    f"<row frequency=\"{f[i]}\" sensitivity=\"{s[i]}\"/>\n")
+                    f"<row frequency=\"{f[i]}\" sensitivity=\"{'{:.12f}'.format(s[i])}\"/>\n")
 
             file.writelines([
                 "</table>\n",
                 "</afc_ref>\n"
             ])
 
-        self.__ui.statusbar.showMessage(f"{acref_path} сохранен")
+        self.__ui.statusbar.showMessage(f"{afcref_path} сохранен")
 
     def exit(self):
         QApplication.quit()
