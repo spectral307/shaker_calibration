@@ -27,7 +27,7 @@ def main():
             "acref_dir", default_dir)
 
     if settings.value("use_same_afc_report_and_acref_dir") is None:
-        settings.setValue("use_same_afc_report_and_acref", False)
+        settings.setValue("use_same_afc_report_and_acref_dir", False)
 
     main_win = MainWindow()
     main_win.show()
