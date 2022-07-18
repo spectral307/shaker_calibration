@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QMainWindow, QFileDialog, QApplication
 from PyQt6.QtCore import QSettings
 from openpyxl import load_workbook
 from os.path import dirname, basename, join, splitext
+from math import pi
 from .ui_main_window import Ui_MainWindow
 
 
@@ -85,7 +86,17 @@ class MainWindow(QMainWindow):
             if new_afcref_dir != settings.value("afcref_dir"):
                 settings.setValue("afcref_dir", new_afcref_dir)
 
-        with open(afcref_path, "w") as file:
+        s = self.__transform_into_velocity_sensitivity(f, s)
+
+        self.__write_afcref_file(afcref_path, f, s)
+
+        self.__ui.statusbar.showMessage(f"{afcref_path} сохранен")
+
+    def exit(self):
+        QApplication.quit()
+
+    def __write_afcref_file(self, path, f, s):
+        with open(path, "w") as file:
             file.writelines([
                 "<?xml version=\"1.0\" encoding=\"windows-1251\"?>\n",
                 "<afc_ref>\n",
@@ -103,7 +114,9 @@ class MainWindow(QMainWindow):
                 "</afc_ref>\n"
             ])
 
-        self.__ui.statusbar.showMessage(f"{afcref_path} сохранен")
-
-    def exit(self):
-        QApplication.quit()
+    def __transform_into_velocity_sensitivity(self, f, s):
+        s_velocity = []
+        for i, v in enumerate(f):
+            s_velocity_value = s[i] * 2 * pi * v / 1e3
+            s_velocity.append(s_velocity_value)
+        return s_velocity
