@@ -5,6 +5,34 @@ import sys
 from .main_window import MainWindow
 
 
+def init_settings(settings: QSettings):
+    default_dir = QDir.home().absolutePath()
+
+    if settings.value("transform_into_velocity_sensititivity") is None:
+        settings.setValue("transform_into_velocity_sensitivity", False)
+
+    if settings.value("interpolate") is None:
+        settings.setValue("interpolate", False)
+
+    if settings.value("extra_fi") is None:
+        settings.setValue("extra_fi", [])
+
+    if settings.value("default_afc_report_dir") is None:
+        settings.setValue(
+            "default_afc_report_dir", default_dir)
+
+    if settings.value("defatult_afcref_dir") is None:
+        settings.setValue(
+            "default_afcref_dir", default_dir)
+
+    if settings.value("use_same_default_afc_report_and_afcref_dir") is None:
+        settings.setValue("use_same_default_afc_report_and_afcref_dir", False)
+
+
+def clear_settings(self, settings: QSettings):
+    settings.clear()
+
+
 def main():
     app = QApplication(sys.argv)
 
@@ -14,20 +42,7 @@ def main():
 
     settings = QSettings()
 
-    default_dir = "F:\\3. Метрология"
-    if not exists(default_dir):
-        default_dir = QDir.home().absolutePath()
-
-    if settings.value("afc_report_dir") is None:
-        settings.setValue(
-            "afc_report_dir", default_dir)
-
-    if settings.value("afcref_dir") is None:
-        settings.setValue(
-            "afcref_dir", default_dir)
-
-    if settings.value("use_same_afc_report_and_afcref_dir") is None:
-        settings.setValue("use_same_afc_report_and_afcref_dir", False)
+    init_settings(settings)
 
     main_win = MainWindow()
     main_win.show()

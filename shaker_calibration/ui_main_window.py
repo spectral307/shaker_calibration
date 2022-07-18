@@ -42,6 +42,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Калибровка вибростенда"))
         self.menu.setTitle(_translate("MainWindow", "Файл"))
         self.open_afc_report_action.setText(_translate("MainWindow", "Открыть протокол АЧХ..."))
+        self.open_afc_report_action.setShortcut(_translate("MainWindow", "Ctrl+O"))
         self.exit_action.setText(_translate("MainWindow", "Выход"))
 
 
