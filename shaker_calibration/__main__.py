@@ -1,6 +1,5 @@
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QSettings, QDir
-from os.path import exists
 import sys
 from .main_window import MainWindow
 
@@ -8,11 +7,8 @@ from .main_window import MainWindow
 def init_settings(settings: QSettings):
     default_dir = QDir.home().absolutePath()
 
-    if settings.value("transform_into_velocity_sensititivity") is None:
+    if settings.value("transform_into_velocity_sensitivity") is None:
         settings.setValue("transform_into_velocity_sensitivity", False)
-
-    if settings.value("interpolate") is None:
-        settings.setValue("interpolate", False)
 
     if settings.value("extra_fi") is None:
         settings.setValue("extra_fi", [])
@@ -29,7 +25,7 @@ def init_settings(settings: QSettings):
         settings.setValue("use_same_default_afc_report_and_afcref_dir", False)
 
 
-def clear_settings(self, settings: QSettings):
+def clear_settings(settings: QSettings):
     settings.clear()
 
 

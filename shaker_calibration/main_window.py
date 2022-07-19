@@ -3,6 +3,7 @@ from PyQt6.QtCore import QSettings
 from openpyxl import load_workbook
 from os.path import dirname, basename, join, splitext
 from .ui_main_window import Ui_MainWindow
+from .settings_dialog import SettingsDialog
 
 
 class MainWindow(QMainWindow):
@@ -16,7 +17,11 @@ class MainWindow(QMainWindow):
 
         self.__ui.open_afc_report_action.triggered.connect(
             self.process_afc_report)
+        self.__ui.settings_action.triggered.connect(self.show_settings_dialog)
         self.__ui.exit_action.triggered.connect(self.exit)
+
+    def show_settings_dialog(self):
+        SettingsDialog().exec()
 
     def process_afc_report(self):
         settings = QSettings()
@@ -36,13 +41,13 @@ class MainWindow(QMainWindow):
         if not afcref_path:
             return
 
-        if settings.value("transform_into_velocity_sensitivity", type=bool):
-            s = self.__transform_into_velocity_sensitivity(f, s)
-
         extra_f = [int(val)
                    for val in settings.value("extra_f", type=list)]
         if len(extra_f) > 0:
             f, s = self.__interpolate(f, s, extra_f)
+
+        if settings.value("transform_into_velocity_sensitivity", type=bool):
+            s = self.__transform_into_velocity_sensitivity(f, s)
 
         self.__write_afcref_file(afcref_path, f, s)
 

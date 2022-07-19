@@ -29,7 +29,10 @@ class Ui_MainWindow(object):
         self.open_afc_report_action.setObjectName("open_afc_report_action")
         self.exit_action = QtGui.QAction(MainWindow)
         self.exit_action.setObjectName("exit_action")
+        self.settings_action = QtGui.QAction(MainWindow)
+        self.settings_action.setObjectName("settings_action")
         self.menu.addAction(self.open_afc_report_action)
+        self.menu.addAction(self.settings_action)
         self.menu.addSeparator()
         self.menu.addAction(self.exit_action)
         self.menubar.addAction(self.menu.menuAction())
@@ -44,6 +47,8 @@ class Ui_MainWindow(object):
         self.open_afc_report_action.setText(_translate("MainWindow", "Открыть протокол АЧХ..."))
         self.open_afc_report_action.setShortcut(_translate("MainWindow", "Ctrl+O"))
         self.exit_action.setText(_translate("MainWindow", "Выход"))
+        self.settings_action.setText(_translate("MainWindow", "Настройки..."))
+        self.settings_action.setShortcut(_translate("MainWindow", "Ctrl+P"))
 
 
 if __name__ == "__main__":
