@@ -17,7 +17,7 @@ def init_settings(settings: QSettings):
         settings.setValue(
             "default_afc_report_dir", default_dir)
 
-    if settings.value("defatult_afcref_dir") is None:
+    if settings.value("default_afcref_dir") is None:
         settings.setValue(
             "default_afcref_dir", default_dir)
 

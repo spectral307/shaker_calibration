@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QMainWindow, QFileDialog, QApplication
 from PyQt6.QtCore import QSettings
 from openpyxl import load_workbook
 from os.path import dirname, basename, join, splitext
-from .ui_main_window import Ui_MainWindow
+from .ui.ui_main_window import Ui_MainWindow
 from .settings_dialog import SettingsDialog
 
 
@@ -158,13 +158,13 @@ class MainWindow(QMainWindow):
                 raise ValueError(
                     f"Значение {v} уже содержится в векторе частот.")
 
-        from scipy.interpolate import CubicSpline
+        from scipy.interpolate import PchipInterpolator
         from bisect import bisect
 
         f = f.copy()
         s = s.copy()
 
-        interpolator = CubicSpline(f, s)
+        interpolator = PchipInterpolator(f, s)
         extra_s = interpolator(extra_f)
 
         for i, v in enumerate(extra_f):
