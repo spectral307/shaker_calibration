@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QDialog, QMessageBox
 from PyQt6.QtCore import QSettings
-from ui_settings_dialog import Ui_SettingsDialog
+from .ui_settings_dialog import Ui_SettingsDialog
 
 
 class SettingsDialog(QDialog):
