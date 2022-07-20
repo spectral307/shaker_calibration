@@ -1,3 +1,4 @@
+from ast import Not
 from PyQt6.QtWidgets import QDialog, QMessageBox
 from PyQt6.QtCore import QSettings
 from .ui.ui_settings_dialog import Ui_SettingsDialog
@@ -24,17 +25,17 @@ class SettingsDialog(QDialog):
         self.__settings.setValue("transform_into_velocity_sensitivity",
                                  self.__ui.velocity_transform_checkbox.isChecked())
 
-        extra_f_text = self.__ui.extra_f_lineedit.text()
-        if extra_f_text:
-            extra_f_strs = extra_f_text.split(",")
+        extra_f = []
+        extra_f_text = self.__ui.extra_f_lineedit.text().strip()
+        extra_f_strs = extra_f_text.split(",")
+        if not(len(extra_f_strs) == 1 and extra_f_strs[0] == ""):
             try:
-                extra_f = [int(val) for val in extra_f_strs]
+                for val in extra_f_strs:
+                    extra_f.append(int(val))
             except ValueError:
                 QMessageBox().critical(self, "Ошибка",
                                        "Дополнительные частоты должны быть целыми числами, разделёнными запятой.")
                 return
-        else:
-            extra_f = []
         self.__settings.setValue("extra_f", extra_f)
 
         return super().accept()
