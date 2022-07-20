@@ -1,4 +1,3 @@
-from ast import Not
 from PyQt6.QtWidgets import QDialog, QMessageBox
 from PyQt6.QtCore import QSettings
 from .ui.ui_settings_dialog import Ui_SettingsDialog
