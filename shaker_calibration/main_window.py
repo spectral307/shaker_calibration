@@ -152,6 +152,14 @@ class MainWindow(QMainWindow):
             s_velocity.append(s_velocity_value)
         return s_velocity
 
+    def __transform_into_displacement_sensitivity(self, f, s):
+        from math import pi
+        s_displacement = []
+        for i, v in enumerate(f):
+            s_displacement_value = s[i] * 4 * pi**2 * v**2 / 1e6
+            s_displacement.append(s_displacement_value)
+        return s_displacement
+
     def __interpolate(self, f: list, s: list, extra_f: list):
         for v in extra_f:
             if v in f:
