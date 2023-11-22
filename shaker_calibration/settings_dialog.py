@@ -17,12 +17,18 @@ class SettingsDialog(QDialog):
         self.__ui.velocity_transform_checkbox.setChecked(
             self.__settings.value("transform_into_velocity_sensitivity", type=bool))
 
+        self.__ui.displacement_transform_checkbox.setChecked(
+            self.__settings.value("transform_into_displacement_sensitivity", type=bool))
+
         extra_f = self.__settings.value("extra_f", type=list)
         self.__ui.extra_f_lineedit.setText(",".join(extra_f))
 
     def accept(self):
         self.__settings.setValue("transform_into_velocity_sensitivity",
                                  self.__ui.velocity_transform_checkbox.isChecked())
+
+        self.__settings.setValue("transform_into_displacement_sensitivity",
+                                 self.__ui.displacement_transform_checkbox.isChecked())
 
         extra_f = []
         extra_f_text = self.__ui.extra_f_lineedit.text().strip()

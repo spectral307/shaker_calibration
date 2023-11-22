@@ -35,23 +35,36 @@ class MainWindow(QMainWindow):
 
         f, s = self.__read_afc_report(afc_report_path)
 
-        afcref_path = self.__get_afcref_path(settings,
-                                             afc_report_dir,
-                                             afc_report_filename)
-        if not afcref_path:
-            return
-
         extra_f = [int(val)
                    for val in settings.value("extra_f", type=list)]
         if len(extra_f) > 0:
             f, s = self.__interpolate(f, s, extra_f)
 
         if settings.value("transform_into_velocity_sensitivity", type=bool):
-            s = self.__transform_into_velocity_sensitivity(f, s)
+            s_velo = self.__transform_into_velocity_sensitivity(f, s)
 
-        self.__write_afcref_file(afcref_path, f, s)
+            afcref_path = self.__get_afcref_path(settings,
+                                             afc_report_dir,
+                                             afc_report_filename)
+            if not afcref_path:
+                return
 
-        self.__ui.statusbar.showMessage(f"{afcref_path} сохранен")
+            self.__write_afcref_file(afcref_path, f, s_velo)
+
+            self.__ui.statusbar.showMessage(f"{afcref_path} сохранен")
+
+        if settings.value("transform_into_displacement_sensitivity", type=bool):
+            s_disp = self.__transform_into_displacement_sensitivity(f, s)
+
+            afcref_path = self.__get_afcref_path(settings,
+                                             afc_report_dir,
+                                             afc_report_filename)
+            if not afcref_path:
+                return
+
+            self.__write_afcref_file(afcref_path, f, s_disp)
+
+            self.__ui.statusbar.showMessage(f"{afcref_path} сохранен")
 
     def exit(self):
         QApplication.quit()
