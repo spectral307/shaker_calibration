@@ -166,10 +166,10 @@ class MainWindow(QMainWindow):
         return s_velocity
 
     def __transform_into_displacement_sensitivity(self, f, s):
-        from math import pi
+        from math import pi, sqrt
         s_displacement = []
         for i, v in enumerate(f):
-            s_displacement_value = s[i] * 4 * pi**2 * v**2 / 1e6
+            s_displacement_value = s[i] * 4 * pi**2 * v**2 / (1e6*sqrt(2)*2)
             s_displacement.append(s_displacement_value)
         return s_displacement
 
