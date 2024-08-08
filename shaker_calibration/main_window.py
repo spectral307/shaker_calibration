@@ -44,8 +44,8 @@ class MainWindow(QMainWindow):
             s_velo = self.__transform_into_velocity_sensitivity(f, s)
 
             afcref_path = self.__get_afcref_path(settings,
-                                             afc_report_dir,
-                                             afc_report_filename)
+                                                 afc_report_dir,
+                                                 afc_report_filename)
             if not afcref_path:
                 return
 
@@ -57,8 +57,21 @@ class MainWindow(QMainWindow):
             s_disp = self.__transform_into_displacement_sensitivity(f, s)
 
             afcref_path = self.__get_afcref_path(settings,
-                                             afc_report_dir,
-                                             afc_report_filename)
+                                                 afc_report_dir,
+                                                 afc_report_filename)
+            if not afcref_path:
+                return
+
+            self.__write_afcref_file(afcref_path, f, s_disp)
+
+            self.__ui.statusbar.showMessage(f"{afcref_path} сохранен")
+
+        if settings.value("transform_into_accel_ptp_sens", type=bool):
+            s_disp = self.__transform_into_accel_peak_to_peak_sens(f, s)
+
+            afcref_path = self.__get_afcref_path(settings,
+                                                 afc_report_dir,
+                                                 afc_report_filename)
             if not afcref_path:
                 return
 
@@ -172,6 +185,14 @@ class MainWindow(QMainWindow):
             s_displacement_value = s[i] * 4 * pi**2 * v**2 / (1e6*sqrt(2)*2)
             s_displacement.append(s_displacement_value)
         return s_displacement
+
+    def __transform_into_accel_peak_to_peak_sens(self, f, s):
+        from math import pi, sqrt
+        s_accel_ptp = []
+        for i, v in enumerate(f):
+            s_accel_ptp_value = s[i] / (sqrt(2)*2)
+            s_accel_ptp.append(s_accel_ptp_value)
+        return s_accel_ptp
 
     def __interpolate(self, f: list, s: list, extra_f: list):
         for v in extra_f:

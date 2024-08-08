@@ -20,6 +20,9 @@ class SettingsDialog(QDialog):
         self.__ui.displacement_transform_checkbox.setChecked(
             self.__settings.value("transform_into_displacement_sensitivity", type=bool))
 
+        self.__ui.accel_ptp_transform_checkbox.setChecked(
+            self.__settings.value("transform_into_accel_ptp_sens", type=bool))
+
         extra_f = self.__settings.value("extra_f", type=list)
         self.__ui.extra_f_lineedit.setText(",".join(extra_f))
 
@@ -30,10 +33,13 @@ class SettingsDialog(QDialog):
         self.__settings.setValue("transform_into_displacement_sensitivity",
                                  self.__ui.displacement_transform_checkbox.isChecked())
 
+        self.__settings.setValue("transform_into_accel_ptp_sens",
+                                 self.__ui.accel_ptp_transform_checkbox.isChecked())
+
         extra_f = []
         extra_f_text = self.__ui.extra_f_lineedit.text().strip()
         extra_f_strs = extra_f_text.split(",")
-        if not(len(extra_f_strs) == 1 and extra_f_strs[0] == ""):
+        if not (len(extra_f_strs) == 1 and extra_f_strs[0] == ""):
             try:
                 for val in extra_f_strs:
                     extra_f.append(int(val))

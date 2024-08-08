@@ -12,37 +12,54 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_SettingsDialog(object):
     def setupUi(self, SettingsDialog):
         SettingsDialog.setObjectName("SettingsDialog")
-        SettingsDialog.resize(400, 180)
+        SettingsDialog.resize(400, 200)
         self.buttonBox = QtWidgets.QDialogButtonBox(SettingsDialog)
-        self.buttonBox.setGeometry(QtCore.QRect(30, 130, 341, 32))
+        self.buttonBox.setGeometry(QtCore.QRect(30, 150, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Orientation.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.StandardButton.Cancel|QtWidgets.QDialogButtonBox.StandardButton.Ok)
+        self.buttonBox.setStandardButtons(
+            QtWidgets.QDialogButtonBox.StandardButton.Cancel | QtWidgets.QDialogButtonBox.StandardButton.Ok)
         self.buttonBox.setCenterButtons(True)
         self.buttonBox.setObjectName("buttonBox")
         self.velocity_transform_checkbox = QtWidgets.QCheckBox(SettingsDialog)
-        self.velocity_transform_checkbox.setGeometry(QtCore.QRect(20, 20, 321, 20))
-        self.velocity_transform_checkbox.setObjectName("velocity_transform_checkbox")
+        self.velocity_transform_checkbox.setGeometry(
+            QtCore.QRect(20, 20, 321, 20))
+        self.velocity_transform_checkbox.setObjectName(
+            "velocity_transform_checkbox")
         self.extra_f_label = QtWidgets.QLabel(SettingsDialog)
-        self.extra_f_label.setGeometry(QtCore.QRect(20, 70, 361, 16))
+        self.extra_f_label.setGeometry(QtCore.QRect(20, 90, 361, 16))
         self.extra_f_label.setObjectName("extra_f_label")
         self.extra_f_lineedit = QtWidgets.QLineEdit(SettingsDialog)
-        self.extra_f_lineedit.setGeometry(QtCore.QRect(20, 90, 361, 22))
+        self.extra_f_lineedit.setGeometry(QtCore.QRect(20, 110, 361, 22))
         self.extra_f_lineedit.setObjectName("extra_f_lineedit")
-        self.displacement_transform_checkbox = QtWidgets.QCheckBox(SettingsDialog)
-        self.displacement_transform_checkbox.setGeometry(QtCore.QRect(20, 40, 321, 20))
-        self.displacement_transform_checkbox.setObjectName("displacement_transform_checkbox")
+        self.displacement_transform_checkbox = QtWidgets.QCheckBox(
+            SettingsDialog)
+        self.displacement_transform_checkbox.setGeometry(
+            QtCore.QRect(20, 40, 321, 20))
+        self.displacement_transform_checkbox.setObjectName(
+            "displacement_transform_checkbox")
+        self.accel_ptp_transform_checkbox = QtWidgets.QCheckBox(SettingsDialog)
+        self.accel_ptp_transform_checkbox.setGeometry(
+            QtCore.QRect(20, 60, 321, 20))
+        self.accel_ptp_transform_checkbox.setObjectName(
+            "accel_ptp_transform_checkbox")
 
         self.retranslateUi(SettingsDialog)
-        self.buttonBox.accepted.connect(SettingsDialog.accept) # type: ignore
-        self.buttonBox.rejected.connect(SettingsDialog.reject) # type: ignore
+        self.buttonBox.accepted.connect(SettingsDialog.accept)  # type: ignore
+        self.buttonBox.rejected.connect(SettingsDialog.reject)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(SettingsDialog)
 
     def retranslateUi(self, SettingsDialog):
         _translate = QtCore.QCoreApplication.translate
-        SettingsDialog.setWindowTitle(_translate("SettingsDialog", "Настройки"))
-        self.velocity_transform_checkbox.setText(_translate("SettingsDialog", "Преобразовать в чувствительность по скорости"))
-        self.extra_f_label.setText(_translate("SettingsDialog", "Интерполировать на дополнительных частотах (через запятую):"))
-        self.displacement_transform_checkbox.setText(_translate("SettingsDialog", "Преобразовать в чувствительность по перемещению"))
+        SettingsDialog.setWindowTitle(
+            _translate("SettingsDialog", "Настройки"))
+        self.velocity_transform_checkbox.setText(_translate(
+            "SettingsDialog", "Преобразовать в чувствительность по скорости"))
+        self.extra_f_label.setText(_translate(
+            "SettingsDialog", "Интерполировать на дополнительных частотах (через запятую):"))
+        self.displacement_transform_checkbox.setText(_translate(
+            "SettingsDialog", "Преобразовать в чувствительность по перемещению"))
+        self.accel_ptp_transform_checkbox.setText(_translate(
+            "SettingsDialog", "Преобразовать в чувств. по размаху ускорения"))
 
 
 if __name__ == "__main__":

@@ -13,6 +13,9 @@ def init_settings(settings: QSettings):
     if settings.value("transform_into_displacement_sensitivity") is None:
         settings.setValue("transform_into_displacement_sensitivity", False)
 
+    if settings.value("transform_into_accel_ptp_sens") is None:
+        settings.setValue("transform_into_accel_ptp_sens", False)
+
     if settings.value("extra_fi") is None:
         settings.setValue("extra_fi", [])
 
