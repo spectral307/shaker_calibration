@@ -40,15 +40,24 @@ class MainWindow(QMainWindow):
         if len(extra_f) > 0:
             f, s = self.__interpolate(f, s, extra_f)
 
-        afcref_path = self.__get_afcref_path(settings,
-                                             afc_report_dir,
-                                             afc_report_filename)
-        if not afcref_path:
-            return
+        if ((not settings.value(
+            "transform_into_velocity_sensitivity", type=bool
+        )) or
+            (settings.value(
+                "transform_into_displacement_sensitivity", type=bool
+            )) or
+                (settings.value(
+                    "transform_into_accel_ptp_sens", type=bool)
+                 )):
+            afcref_path = self.__get_afcref_path(settings,
+                                                 afc_report_dir,
+                                                 afc_report_filename)
+            if not afcref_path:
+                return
 
-        self.__write_afcref_file(afcref_path, f, s)
+            self.__write_afcref_file(afcref_path, f, s)
 
-        self.__ui.statusbar.showMessage(f"{afcref_path} сохранен")
+            self.__ui.statusbar.showMessage(f"{afcref_path} сохранен")
 
         if settings.value("transform_into_velocity_sensitivity", type=bool):
             s_velo = self.__transform_into_velocity_sensitivity(f, s)
